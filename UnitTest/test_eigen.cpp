@@ -1,42 +1,43 @@
 #include "gtest/gtest.h"
+#include "glog/logging.h"
 
 #include "Eigen/Eigen"
 
 TEST(eigen, LinearEquation)
 {
     Eigen::MatrixXd A = Eigen::MatrixXd::Random(3, 3);
-    std::cout << "A:" << A << std::endl << std::endl;
+    LOG(INFO) << "A:" << A;
 
     Eigen::VectorXd B = Eigen::VectorXd::Random(3);
-    std::cout << "B:" << B << std::endl << std::endl;
+    LOG(INFO) << "B:" << B;
 
     Eigen::VectorXd x = A.colPivHouseholderQr().solve(B);
-    std::cout << "x:" << x << std::endl << std::endl;
+    LOG(INFO) << "x:" << x;
 
     auto testB = A * x;
-    std::cout << "testB:" << testB << std::endl;
+    LOG(INFO) << "testB:" << testB;
 }
 
 TEST(eigen, SVD)
 {
     Eigen::MatrixXd A = Eigen::MatrixXd::Random(3, 3);
-    std::cout << "A:" << A << std::endl << std::endl;
+    LOG(INFO) << "A:" << A;
 
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(A, Eigen::ComputeThinU | Eigen::ComputeThinV);
     auto v = svd.matrixV();
-    std::cout << "v:" << v << std::endl << std::endl;
+    LOG(INFO) << "v:" << v;
 
     auto u = svd.matrixU();
-    std::cout << "u:" << u << std::endl << std::endl;
+    LOG(INFO) << "u:" << u;
 
     auto a = svd.singularValues();
-    std::cout << "a:" << a << std::endl << std::endl;
+    LOG(INFO) << "a:" << a;
 
     Eigen::MatrixXd aD = a.asDiagonal();
     auto r = aD.rows();
     auto c = aD.cols();
-    std::cout << "aD:" << aD << std::endl << std::endl;
+    LOG(INFO) << "aD:" << aD;
 
     auto pA = u * aD * v.transpose();
-    std::cout << "pA:" << pA << std::endl << std::endl;
+    LOG(INFO) << "pA:" << pA;
 }

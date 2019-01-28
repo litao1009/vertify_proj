@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "glog/logging.h"
 
 #include "Eigen/Eigen"
 
@@ -87,6 +88,4 @@ TEST(opencv, bdc)
     EigenMatrixType B = u * aD * v.transpose();
 
     cv::Mat bImg(B.rows(), B.cols(), CV_64FC1, B.data());
-
-    auto i = 0;
 }

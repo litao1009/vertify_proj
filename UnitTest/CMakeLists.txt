@@ -7,7 +7,8 @@ file(GLOB SRC_LIST *.cpp)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-message("EIGEN_INCLUDE_DIR:${EIGEN_INCLUDE_DIR}")
+
+# eigen include dir
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${EIGEN_INCLUDE_DIR}
     )
@@ -17,7 +18,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     gtest
     )
 
-# link std lib
+# link std lib ( only valid for linux )
 target_link_libraries(${PROJECT_NAME} PRIVATE
     c++fs
     pthread

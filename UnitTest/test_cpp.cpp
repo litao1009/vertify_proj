@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "glog/logging.h"
 
 #include <filesystem>
 #include <tuple>
@@ -6,7 +7,7 @@
 
 TEST(cpp, filesytem)
 {
-    std::cout << "\t\t" << std::filesystem::current_path() << std::endl;
+    LOG(INFO) << std::filesystem::current_path();
 }
 
 TEST(cpp, tuple)
