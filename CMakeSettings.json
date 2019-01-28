@@ -1,0 +1,135 @@
+{
+  "environments": [
+    {
+      "RootName": "vertify_proj",
+      "LocalBuildRoot": "${projectDir}\\cmake_build\\${name}",
+      "LocalInstallRoot": "${projectDir}\\cmake_install\\${name}",
+      "RemoteBuildRoot": "/var/tmp/${env.RootName}/${workspaceHash}/${name}/build",
+      "RemoteCMakeRoot": "/var/tmp/${env.RootName}/${workspaceHash}/${name}/cmake",
+      "RemoteInstallRoot": "/var/tmp/${env.RootName}/${workspaceHash}/${name}/install"
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Linux-Debug",
+      "generator": "Unix Makefiles",
+      "remoteMachineName": "localhost",
+      "configurationType": "Debug",
+      "cmakeExecutable": "/usr/local/bin/cmake",
+      "remoteCMakeListsRoot": "${env.RemoteCMakeRoot}",
+      "buildRoot": "${env.LocalBuildRoot}",
+      "installRoot": "${env.LocalInstallRoot}",
+      "remoteBuildRoot": "${env.RemoteBuildRoot}",
+      "remoteInstallRoot": "${env.RemoteInstallRoot}",
+      "remoteCopySources": true,
+      "remoteCopySourcesOutputVerbosity": "Normal",
+      "remoteCopySourcesConcurrentCopies": "10",
+      "remoteCopySourcesMethod": "sftp",
+      "remoteCopySourcesExclusionList": [
+        ".vs",
+        ".git",
+        ".gitignore",
+        ".gitmodules",
+        "cmake_build",
+        "externals/ceres",
+        "externals/dlib",
+        "externals/Eigen",
+        "externals/opencv",
+        "externals/glog",
+        "externals/gtest",
+      ],
+      "rsyncCommandArgs": "-t --delete --delete-excluded",
+      "remoteCopyBuildOutput": false,
+      "cmakeCommandArgs": "",
+      "variables": [
+        {
+          "name": "CMAKE_INSTALL_PREFIX",
+          "value": "/usr/local/${env.RootName}"
+        },
+        {
+          "name": "EIGEN_INCLUDE_DIR",
+          "value": "/usr/include/eigen3"
+        }
+      ],
+      "intelliSenseMode": "windows-msvc-x64",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [
+        "linux_x64"
+      ]
+    },
+    {
+      "name": "Linux-Release",
+      "generator": "Unix Makefiles",
+      "remoteMachineName": "localhost",
+      "configurationType": "Release",
+      "cmakeExecutable": "/usr/local/bin/cmake",
+      "remoteCMakeListsRoot": "${env.RemoteCMakeRoot}",
+      "buildRoot": "${env.LocalBuildRoot}",
+      "installRoot": "${env.LocalInstallRoot}",
+      "remoteBuildRoot": "${env.RemoteBuildRoot}",
+      "remoteInstallRoot": "${env.RemoteInstallRoot}",
+      "remoteCopySources": true,
+      "remoteCopySourcesOutputVerbosity": "Normal",
+      "remoteCopySourcesConcurrentCopies": "10",
+      "remoteCopySourcesMethod": "sftp",
+      "remoteCopySourcesExclusionList": [
+        ".vs",
+        ".git",
+        ".gitignore",
+        ".gitmodules",
+        "cmake_build",
+        "externals/ceres",
+        "externals/dlib",
+        "externals/Eigen",
+        "externals/opencv",
+        "externals/glog",
+        "externals/gtest",
+      ],
+      "rsyncCommandArgs": "-t --delete --delete-excluded",
+      "remoteCopyBuildOutput": false,
+      "cmakeCommandArgs": "",
+      "variables": [
+        {
+          "name": "CMAKE_INSTALL_PREFIX",
+          "value": "/usr/local/${env.RootName}"
+        },
+        {
+          "name": "EIGEN_INCLUDE_DIR",
+          "value": "/usr/include/eigen3"
+        }
+      ],
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [
+        "linux_x64"
+      ]
+    },
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [
+        "msvc_x64_x64"
+      ],
+      "buildRoot": "${env.LocalBuildRoot}",
+      "installRoot": "${env.LocalInstallRoot}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": [
+        "msvc_x64_x64"
+      ],
+      "buildRoot": "${env.LocalBuildRoot}",
+      "installRoot": "${env.LocalInstallRoot}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    }
+  ]
+}
