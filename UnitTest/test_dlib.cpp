@@ -8,11 +8,13 @@
 #include "dlib/image_io.h"
 #include "dlib/opencv.h"
 
+#include "CppLibPack/dlib_dat.h"
+
 TEST(dlib, detection)
 {
     dlib::frontal_face_detector detector = dlib::get_frontal_face_detector();
     dlib::shape_predictor sp;
-    dlib::deserialize("/var/lib/dlib/shape_predictor_68_face_landmarks.dat") >> sp;
+    dlib::deserialize(CppLibPack_DLIB_DAT) >> sp;
 
     auto img = cv::imread("data/0_female_bgr.png", cv::IMREAD_ANYCOLOR);
     

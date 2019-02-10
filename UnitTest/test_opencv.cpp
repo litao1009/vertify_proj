@@ -14,6 +14,7 @@ TEST(opencv, jacobi)
 {
     auto cvRaw = cv::imread("data/dag.png", cv::IMREAD_ANYCOLOR);
     ASSERT_EQ(cvRaw.empty(), false);
+    cv::resize(cvRaw, cvRaw, cvRaw.size() / 4);
 
     std::vector<cv::Mat> splits;
     cv::split(cvRaw, splits);
@@ -54,6 +55,7 @@ TEST(opencv, bdc)
 {
     auto cvRaw = cv::imread("data/dag.png", cv::IMREAD_ANYCOLOR);
     ASSERT_EQ(cvRaw.empty(), false);
+    cv::resize(cvRaw, cvRaw, cvRaw.size() / 4);
 
     std::vector<cv::Mat> splits;
     cv::split(cvRaw, splits);

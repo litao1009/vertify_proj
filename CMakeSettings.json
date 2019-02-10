@@ -30,13 +30,7 @@
         ".git",
         ".gitignore",
         ".gitmodules",
-        "cmake_build",
-        "externals/ceres",
-        "externals/dlib",
-        "externals/Eigen",
-        "externals/opencv",
-        "externals/glog",
-        "externals/gtest",
+        "cmake_build"
       ],
       "rsyncCommandArgs": "-t --delete --delete-excluded",
       "remoteCopyBuildOutput": false,
@@ -45,10 +39,6 @@
         {
           "name": "CMAKE_INSTALL_PREFIX",
           "value": "/usr/local/${env.RootName}"
-        },
-        {
-          "name": "EIGEN_INCLUDE_DIR",
-          "value": "/usr/include/eigen3"
         }
       ],
       "intelliSenseMode": "windows-msvc-x64",
@@ -61,8 +51,8 @@
     {
       "name": "Linux-Release",
       "generator": "Unix Makefiles",
-      "remoteMachineName": "localhost",
-      "configurationType": "Release",
+      "remoteMachineName": "${defaultRemoteMachineName}",
+      "configurationType": "RelWithDebInfo",
       "cmakeExecutable": "/usr/local/bin/cmake",
       "remoteCMakeListsRoot": "${env.RemoteCMakeRoot}",
       "buildRoot": "${env.LocalBuildRoot}",
@@ -72,33 +62,17 @@
       "remoteCopySources": true,
       "remoteCopySourcesOutputVerbosity": "Normal",
       "remoteCopySourcesConcurrentCopies": "10",
-      "remoteCopySourcesMethod": "sftp",
+      "remoteCopySourcesMethod": "rsync",
       "remoteCopySourcesExclusionList": [
         ".vs",
         ".git",
         ".gitignore",
         ".gitmodules",
-        "cmake_build",
-        "externals/ceres",
-        "externals/dlib",
-        "externals/Eigen",
-        "externals/opencv",
-        "externals/glog",
-        "externals/gtest",
+        "cmake_build"
       ],
       "rsyncCommandArgs": "-t --delete --delete-excluded",
       "remoteCopyBuildOutput": false,
       "cmakeCommandArgs": "",
-      "variables": [
-        {
-          "name": "CMAKE_INSTALL_PREFIX",
-          "value": "/usr/local/${env.RootName}"
-        },
-        {
-          "name": "EIGEN_INCLUDE_DIR",
-          "value": "/usr/include/eigen3"
-        }
-      ],
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "inheritEnvironments": [
