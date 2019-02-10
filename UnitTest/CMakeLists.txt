@@ -46,3 +46,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     protobuf
     z
     )
+
+# link zip
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    zip
+    )
