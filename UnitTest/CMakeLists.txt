@@ -51,3 +51,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     zip
     )
+
+add_test(
+    NAME "unit_test"
+    COMMAND unit_test
+)
