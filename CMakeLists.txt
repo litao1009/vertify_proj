@@ -16,4 +16,6 @@ CppLibPack_CopyDLL(
     opencv_imgcodecs
     ceres
     z
+    pcl_kdtree
+    pcl_common
     )

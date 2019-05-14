@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project (unit_test)
 
-file(GLOB_RECURSE SRC_LIST *.c*)
+file(GLOB_RECURSE SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.c*)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
@@ -50,6 +50,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 # link zip
 target_link_libraries(${PROJECT_NAME} PRIVATE
     zip
+    )
+
+# link pcl
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    pcl_kdtree
     )
 
 add_test(
