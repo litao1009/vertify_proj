@@ -8,6 +8,28 @@ add_executable(${PROJECT_NAME} ${SRC_LIST})
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
+if ( WIN32 )
+    target_include_directories(${PROJECT_NAME} PRIVATE
+        ${glfw_INCLUDE_DIR}
+        ${gl3w_INCLUDE_DIR}
+        )
+
+    find_library(OGL_LIBS GL)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        gl3w
+        glfw
+        )
+else()
+
+    find_library(MESA_LIB OSMesa)
+    if ( MESA_LIB )
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                GL
+                OSMesa
+                )
+    endif()
+endif()
+
 # link gtest
 target_link_libraries(${PROJECT_NAME} PRIVATE
     gtest
