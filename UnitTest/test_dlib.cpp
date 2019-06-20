@@ -8,8 +8,6 @@
 #include "dlib/image_io.h"
 #include "dlib/opencv.h"
 
-#include "CppLibPack/dlib_dat.h"
-
 TEST(dlib, detection)
 {
     dlib::frontal_face_detector detector = dlib::get_frontal_face_detector();

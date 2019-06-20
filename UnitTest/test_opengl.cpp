@@ -1,26 +1,14 @@
-#ifdef _WIN32
-#define ENABLE_OGL_TEST
-#elif __has_include(<GL/osmesa.h>)
-#define ENABLE_OGL_TEST
-#endif
+#ifdef CppLibPack_OpenGL_Support
 
-#ifdef ENABLE_OGL_TEST
+#include <gtest/gtest.h>
+#include <glog/logging.h>
 
-#include "gtest/gtest.h"
-#include "glog/logging.h"
-
-
-#ifdef _WIN32
-#include "GL/gl3w.h"
-#include "GLFW/glfw3.h"
-#else
-#define GL_GLEXT_PROTOTYPES
-#include "GL/osmesa.h"
-#include "GL/glcorearb.h"
-#endif
+#include <GL/gl3w.h>
+#include <GLFW/glfw3.h>
 
 #include <assert.h>
 #include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
 const char *vertexShaderSource = "#version 330 core\n"
@@ -40,36 +28,19 @@ const char *fragmentShaderSource = "#version 330 core\n"
 
 TEST(opengl, triangle)
 {
-#ifdef _WIN32
     glfwInit();
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     auto gl_context = glfwCreateWindow(800, 600, "", nullptr, nullptr);
     glfwMakeContextCurrent(gl_context);
 
     gl3wInit();
-#else
 
-    cv::Mat frontBuf = cv::Mat::zeros(600, 800, CV_8UC4);
-
-    int attribList[] =
-    {
-        OSMESA_FORMAT, OSMESA_BGRA,
-        OSMESA_DEPTH_BITS, 24,
-        OSMESA_STENCIL_BITS, 8,
-        //OSMESA_ACCUM_BITS, 0,
-        OSMESA_PROFILE, OSMESA_CORE_PROFILE,
-        OSMESA_CONTEXT_MAJOR_VERSION, 3,
-        //OSMESA_CONTEXT_MINOR_VERSION, 3,
-        0
-    };
-    auto mesaCtx = OSMesaCreateContextAttribs(attribList, NULL);
-    //auto mesaCtx = OSMesaCreateContextExt(OSMESA_RGBA, 32, 8, 0, nullptr);
-    //auto mesaCtx = OSMesaCreateContext(OSMESA_BGRA, NULL);
-
-    auto su = OSMesaMakeCurrent(mesaCtx, frontBuf.data, GL_UNSIGNED_BYTE, 800, 600);
-    assert(su == GL_TRUE);
-#endif
+    GLint ms;
+    glGetIntegerv(GL_MAX_COLOR_TEXTURE_SAMPLES, &ms);
 
     GLint version[2];
     glGetIntegerv(GL_MAJOR_VERSION, &version[0]);
@@ -223,32 +194,14 @@ TEST(opengl, triangle)
     cv::Mat dsBuf = cv::Mat::zeros(600, 800, CV_8UC4);
     glReadPixels(0, 0, 800, 600, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, dsBuf.data);
 
-    
-#if _WIN32
-    //auto lnx_colorBuf = cv::imread("J:/test/lnx_colorBuf.png", cv::IMREAD_UNCHANGED);
-    //auto lnx_depthBuf = cv::imread("J:/test/lnx_depthBuf.png", cv::IMREAD_UNCHANGED);
-    //auto lnx_stencilBuf = cv::imread("J:/test/lnx_stencilBuf.png", cv::IMREAD_UNCHANGED);
-    //auto lnx_dsBuf = cv::imread("J:/test/lnx_dsBuf.png", cv::IMREAD_UNCHANGED);
+    cv::imwrite("colorBuf.png", colorBuf);
+    cv::imwrite("depthBuf.png", depthBuf);
+    cv::imwrite("stencilBuf.png", stencilBuf);
+    cv::imwrite("dsBuf.png", dsBuf);
 
-    cv::imwrite("win_colorBuf.png", colorBuf);
-    cv::imwrite("win_depthBuf.png", depthBuf);
-    cv::imwrite("win_stencilBuf.png", stencilBuf);
-    cv::imwrite("win_dsBuf.png", dsBuf);
-#else
-    cv::imwrite("lnx_colorBuf.png", colorBuf);
-    cv::imwrite("lnx_depthBuf.png", depthBuf);
-    cv::imwrite("lnx_stencilBuf.png", stencilBuf);
-    cv::imwrite("lnx_dsBuf.png", dsBuf);
-#endif
-
-
-#ifndef _WIN32
-    cv::imwrite("frontBuf.png", frontBuf);
-#endif
-
-    OSMesaDestroyContext(mesaCtx);
-    
+    glfwDestroyWindow(gl_context);
+    glfwTerminate();
 }
 
 
-#endif //ENABLE_OGL_TEST
+#endif //CppLibPack_OpenGL_Support
