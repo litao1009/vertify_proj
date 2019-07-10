@@ -64,6 +64,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     pcl_kdtree
     )
 
+# link hiredis
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    hiredis
+    )
+
 add_test(
     NAME "unit_test"
     COMMAND unit_test
